@@ -1,0 +1,25 @@
+// server.js
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const port = 5000;
+
+app.use(cors());
+
+const experts = [
+  { id: 1, name: "Alice Johnson", field: "Web Development", rating: 4.5 },
+  { id: 2, name: "Bob Smith", field: "Machine Learning", rating: 4.8 },
+  { id: 3, name: "Cathy Brown", field: "Marketing Strategy", rating: 4.6 },
+];
+
+app.get("/search", (req, res) => {
+  const query = req.query.query.toLowerCase();
+  const filteredExperts = experts.filter((expert) =>
+    expert.field.toLowerCase().includes(query)
+  );
+  res.json(filteredExperts);
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
